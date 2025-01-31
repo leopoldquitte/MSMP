@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH -p cmpli
+#SBATCH -c 8
+#SBATCH --nodelist gpu-node9
+#SBATCH --gres=gpu:1
+#SBATCH -o msmp-ccr2_af2.out
+#SBATCH -e msmp_ccr2_af2.err
+#SBATCH --job-name=msmp_ccr2_af2
+
+# with SRA-Toolkit fasterq-dump
+srun singularity run --nv /shared/software/singularity/images/alphafold-colabfold_1.5.2-rpbs.sif colabfold_batch msmp_ccr2_af2.csv . --model-type alphafold2_multimer_v3 --num-recycle 3 --sort-queries-by length --amber --num-models 5 --use-dropout --num-seeds 100
